@@ -39,13 +39,9 @@
        <li><span class="tu"><img src="../assets/us.jpg"></span></li>
      </div>
     </div>
-    <div class="bottom">
-      <tabNav></tabNav>
-    </div>
  </div>
 </template>
 <script>
-import tabNav from '../components/tabNav'
  export default{
      data(){
        return{
@@ -89,9 +85,6 @@ import tabNav from '../components/tabNav'
         getOut(){
             this.$router.push('/login')
         }
-    },
-    components:{
-        tabNav
     }
  }
 </script>
@@ -102,15 +95,9 @@ import tabNav from '../components/tabNav'
     list-style:none;
 }
  .header{
+     width:100%;
      background-color:#f2f2f2;
-     height:80px;
-    //  .bottom{
-    //     padding-top:10px;
-    //     padding-left:15px;
-    //  } 
- }
- .top,.bottom{
-     height:50%;
+     height:40px;
  }
  .top .hideAside i{
     font-size:25px;

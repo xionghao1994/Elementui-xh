@@ -7,153 +7,178 @@
  </div>
  <!--/标题 -->
   <el-menu
-      default-active="2"
+      :default-active="onRoutes"
       :collapse="$store.getters.isCollapse"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       background-color="#03152A"
       text-color="rgba(255,255,255,.7)"
-      active-text-color="#ffffff">
-      <!--导航1-->
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
+      active-text-color="#409EFF"
+      unique-opened router>
+      <template v-for="item in items">
+        <template v-if="item.subs">
+            <el-submenu :index="item.index" :key="item.index">
+                <template slot="title">
+                    <i :class="item.icon"></i><span slot="title">{{ item.title }}</span>
+                </template>
+                <template v-for="subItem in item.subs">
+                    <el-submenu v-if="subItem.subs" :index="subItem.index" :key="subItem.index">
+                        <template slot="title">{{ subItem.title }}</template>
+                        <el-menu-item v-for="(threeItem,i) in subItem.subs" :key="i" :index="threeItem.index">
+                            {{ threeItem.title }}
+                        </el-menu-item>
+                    </el-submenu>
+                    <el-menu-item v-else :index="subItem.index" :key="subItem.index">
+                        {{ subItem.title }}
+                    </el-menu-item>
+                </template>
+            </el-submenu>
         </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-      <!--导航2 -->
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-tickets"></i>
-          <span>导航二</span>
+        <template v-else>
+            <el-menu-item :index="item.index" :key="item.index">
+                <i :class="item.icon"></i><span slot="title">{{ item.title }}</span>
+            </el-menu-item>
         </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-       <!--导航3 -->
-      <el-submenu index="3">
-        <template slot="title">
-          <i class="el-icon-date"></i>
-          <span>导航三</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-      </el-submenu>
-       <!--导航4 -->
-      <el-submenu index="4">
-        <template slot="title">
-          <i class="el-icon-message"></i>
-          <span>导航四</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-       <!--导航5-->
-      <el-submenu index="5">
-        <template slot="title">
-          <i class="el-icon-edit-outline"></i>
-          <span>导航五</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-       <!--导航6-->
-      <el-submenu index="6">
-        <template slot="title">
-          <i class="el-icon-upload"></i>
-          <span>导航六</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-       <!--导航7-->
-       <el-submenu index="7">
-        <template slot="title">
-          <i class="el-icon-menu"></i>
-          <span>导航七</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-       </el-submenu>
-       <!--导航8-->
-       <el-submenu index="8">
-        <template slot="title">
-          <i class="el-icon-document"></i>
-          <span>导航八</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
-       </el-submenu>
-       <!--导航9-->
-        <el-submenu index="9">
-          <template slot="title">
-            <i class="el-icon-setting"></i>
-            <span>导航九</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
-          </el-submenu>
-        </el-submenu> 
+      </template>
   </el-menu>
 </div>
 </template>
 <script>
+import bus from './bus.js'
   export default {
     data() {
       return {
+         items: [
+                  {
+                      icon: 'el-icon-tickets',
+                      index: 'dashboard',
+                      title: '系统首页'
+                  },
+                  {
+                      icon: 'el-icon-menu',
+                      index: 'table',
+                      title: '基础表格',
+                       subs: [
+                          {
+                              index: 'drag',
+                              title: '拖拽列表',
+                          },
+                          {
+                              index: 'dialog',
+                              title: '拖拽弹框',
+                          }
+                      ]
+                  },
+                  {
+                      icon: 'el-icon-edit-outline',
+                      index: 'tabs',
+                      title: 'tab选项卡',
+                       subs: [
+                          {
+                              index: 'drag',
+                              title: '拖拽列表',
+                          },
+                          {
+                              index: 'dialog',
+                              title: '拖拽弹框',
+                          }
+                      ]
+                  },
+                  {
+                      icon: 'el-icon-upload',
+                      index: '3',
+                      title: '表单相关',
+                      subs: [
+                          {
+                              index: 'form',
+                              title: '基本表单'
+                          },
+                          {
+                              index: 'upload',
+                              title: '文件上传'
+                          },
+                          {
+                              index: '3-2',
+                              title: '三级菜单',
+                              subs: [
+                                  {
+                                      index: 'editor',
+                                      title: '富文本编辑器'
+                                  },
+                                  {
+                                      index: 'markdown',
+                                      title: 'markdown编辑器'
+                                  }
+                              ]
+                          }  
+                      ]
+                  },
+                  {
+                      icon: 'el-icon-delete',
+                      index: 'icon',
+                      title: '自定义图标',
+                       subs: [
+                          {
+                              index: 'drag',
+                              title: '拖拽列表',
+                          },
+                          {
+                              index: 'dialog',
+                              title: '拖拽弹框',
+                          }
+                      ]
+                  },
+                  {
+                      icon: 'el-icon-service',
+                      index: 'charts',
+                      title: 'schart图表',
+                       subs: [
+                          {
+                              index: 'drag',
+                              title: '拖拽列表',
+                          },
+                          {
+                              index: 'dialog',
+                              title: '拖拽弹框',
+                          }
+                      ]
+                  },
+                  {
+                      icon: 'el-icon-edit',
+                      index: '6',
+                      title: '拖拽组件',
+                      subs: [
+                          {
+                              index: 'drag',
+                              title: '拖拽列表',
+                          },
+                          {
+                              index: 'dialog',
+                              title: '拖拽弹框',
+                          }
+                      ]
+                  },
+                  {
+                      icon: 'el-icon-setting',
+                      index: '7',
+                      title: '错误处理',
+                      subs: [
+                          {
+                              index: 'permission',
+                              title: '权限测试'
+                          },
+                          {
+                              index: '404',
+                              title: '404页面'
+                          }
+                      ]
+                  }
+                ]
       }
     },
-    methods: {
-      handleOpen(key, keyPath) {
-      
-      },
-      handleClose(key, keyPath) {
-          
-      }
+    computed:{
+        onRoutes(){
+            return this.$route.path.replace('/','');
+        }
     }
   }
 </script>
@@ -161,7 +186,6 @@
 *{
   margin:0;
   padding:0;
-  font-size:18px;
 }
 .el-menu-item-group /deep/ .el-menu-item-group__title{
     padding: 0px 0px 7px 20px;
